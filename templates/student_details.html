@@ -13,10 +13,10 @@
             <img src="{{ url_for('static', filename='images/profile_pic.PNG')}}" class="col-sm-12">
             {% for data in words%}
             <div class="col-sm-12" style="padding:3px">
-              <h3 style="color:rgb(0, 0, 0);font-weight:bold"> {{data['fname']}} <br> 
+              <h3 style="color:rgb(0, 0, 0);font-weight:bold"> {{data['fname']}}{% endfor %}  <br> 
                 <span class="label label-info status"> undecided </span>
               </h3>
-            </div>{% endfor %} 
+            </div>
           </div>
           <div class="col-sm-7 info-container">
             <legend  class="bg-info">Personal Information</legend>
@@ -79,7 +79,8 @@
               </div>
             </div>
           </div>          
-        </div> 
+        </div>
+         
              
       </div>
     </div>

@@ -6,7 +6,6 @@ import os
 app = Flask(__name__)
 
 app.secret_key = 'secret'
-
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'pass'
 app.config['MYSQL_DATABASE_DB'] = 'students'
@@ -29,8 +28,19 @@ def students_details(id):
     cur.close()
     return render_template('student_details.html', words=students_details)
 
-
-
+@app.route('/student/<id>/update', methods = ['GET, POST'])
+def students_details_update(id):
+    word_id=id
+    if request.method == 'GET':
+        print('This is get method')
+        return render_template('student_details.html')
+    else:
+        status = request.form('status')
+        conn = mysql.get_db()
+        cur = conn.cursor()
+        cur.execute('update word set status=%s where id=%s', (status, word_id))
+        conn.commit()
+        cur.close()
 
 @app.route('/students', methods = ['GET', 'POST'])
 def students_index():
@@ -41,7 +51,7 @@ def students_index():
     return render_template('students_index.html', words=rv)
 
 
-
+# route handler for image
 @app.route('/portal', methods=['GET', 'POST'])
 def portal_form():
     if request.method == 'GET' :
